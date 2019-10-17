@@ -7,19 +7,32 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import tn.esprit.crm.entities.Discount;
+import tn.esprit.crm.services.IDiscountService;
+import tn.esprit.crm.services.IUserService;
 import tn.esprit.crm.services.impl.DiscountServiceImpl;
 
 @Path("/exemple")
 public class BasicResourceExemple {
 	
 	@EJB
-	DiscountServiceImpl discountService;
+	IDiscountService discountService;
+	
+	@EJB
+	IUserService userService;
 	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getTestMessage() {
-		discountService.Add(new Discount());
+		discountService.add(new Discount());
 		return "";
 	}
+	
+	@GET
+	@Path("/get-user")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getUser() {
+		return userService.testAuthenticatedUser().toString();
+	}
+	
 
 }

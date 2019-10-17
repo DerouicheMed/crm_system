@@ -118,6 +118,13 @@
 			    <artifactId>mysql-connector-java</artifactId>
 			    <version>5.1.40</version>
 			</dependency>
+			
+			<!-- Dependency for Lombok -->
+		<dependency>
+	        <groupId>org.projectlombok</groupId>
+	        <artifactId>lombok</artifactId>
+	        <scope>provided</scope>
+	    </dependency>
             
 
         </dependencies>
