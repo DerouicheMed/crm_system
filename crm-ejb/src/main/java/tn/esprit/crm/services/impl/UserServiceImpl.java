@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 
 import tn.esprit.crm.dao.IUserDao;
 import tn.esprit.crm.entities.User;
-import tn.esprit.crm.security.AuthenticationService;
 import tn.esprit.crm.services.IUserService;
 
 @Stateless
@@ -16,14 +15,7 @@ public class UserServiceImpl implements IUserService {
 	@EJB
 	private IUserDao userDao;
 	
-	@EJB
-	private AuthenticationService authenticationService;
-
-	@Override
-	public User testAuthenticatedUser() {
-		return authenticationService.getAuthenticated();
-		
-	}
+	
 
 	@Override
 	public User save(User user) {
@@ -31,8 +23,20 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public User update(User user) {
-		return userDao.update(user);
+	public User updateBasicInformation(User user) {
+		User persistedUser=findOne("id", user.getId());
+		persistedUser.setEmail( user.getEmail( ));
+		persistedUser.setPhoneNumPrimary( user.getPhoneNumPrimary( ));
+		persistedUser.setPhoneNumAlternative( user.getPhoneNumAlternative( ));
+		persistedUser.setAddress( user.getAddress( ));
+		persistedUser.setLastLoggedAt( user.getLastLoggedAt());
+		persistedUser.setCompanyName( user.getCompanyName( ));
+		persistedUser.setCompanyType( user.getCompanyType( ));
+		persistedUser.setFirstname( user.getFirstname( ));
+		persistedUser.setLastname( user.getLastname( ));
+		persistedUser.setCin( user.getCin( ));
+		persistedUser.setBirthDate( user.getBirthDate( ));
+		return userDao.update(persistedUser);
 	}
 
 	@Override
